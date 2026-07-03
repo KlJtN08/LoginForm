@@ -5,8 +5,7 @@ const fieldForm = document.querySelector(".fieldForm")
 const emailInput = document.querySelector(".email")
 const passwordInput = document.querySelector(".password")
 const valdiationResult = document.querySelector("#validationResult")
-const errorMessageEmail = document.querySelector(".errorMessageEmail")
-const errorMessagePassword = document.querySelector(".errorMessagePassword")
+const errorMessage = document.querySelector(".errorMessage")
 
 
 form.addEventListener("submit", function(e){
@@ -22,21 +21,27 @@ form.addEventListener("submit", function(e){
 
 
 function validationData(email, password) {
-    if (!email || !email.includes("@")){
+
+    if (email == "" || password == "" || !email || !password){
         emailInput.classList.add("error")
-        errorMessageEmail.textContent = "Email non valida!"
-    } else {
-        emailInput.classList.remove("error")
-        errorMessageEmail.textContent = ""
-
-    }
-
-    if (!password || password.length < 8){
         passwordInput.classList.add("error")
-        errorMessagePassword.textContent = "Passsword non valida!"
+        errorMessage.textContent = "Inserire tutti i campi"
     } else {
-        passwordInput.classList.remove("error")
-        errorMessagePassword.textContent = ""
-
+        if (!email.includes("@")){
+            emailInput.classList.add("error")
+            passwordInput.classList.add("error")
+            errorMessage.textContent = "I campi inseriti non sono validi!"
+        } else {
+            if (password.length < 8 || password.length > 32){
+                emailInput.classList.add("error")
+                passwordInput.classList.add("error")
+                errorMessage.textContent = "Inserisci una password compresa tra 8 e 32 caratteri"
+            } else {
+                emailInput.classList.remove("error")
+                passwordInput.classList.remove("error")
+                errorMessage.textContent = ""
+            }
+        }
     }
+
 }
